@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Flask App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="grid-container">
+        {% for i in range(6) %}
+        <div class="grid-item category-boxes">{{ categories[i] }}</div>
+        {% endfor %}
+        {% for i in range(1, 6) %}
+        {% for j in range(6) %}
+        <div class="grid-item clue-boxes" onclick="revealClue({{ clues[i][j] }})">{{ prizes[i] }}</div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+    <div class="active-clue" id="activeclue" onclick="hideClue()"><p id="activecluetext" class="active-clue-text"></p></div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
