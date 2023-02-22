@@ -1,6 +1,6 @@
     let colCount = [5,5,5,5,5,5];
     let titles = document.getElementsByClassName("category-boxes");
-    let clueCount = 2;
+    let clueCount = 30;
     let score = 0;
     let values = [200, 400, 600, 800, 1000];
     let timeLeft = 10;
