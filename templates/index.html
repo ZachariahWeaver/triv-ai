@@ -9,9 +9,9 @@
     {% for i in range(6) %}
     <div class="grid-item category-boxes" data-col=i >{{ categories[i] }}</div>
     {% endfor %}
-    {% for i in range(1, 6) %}
-    {% for j in range(6) %}
-    <div class="grid-item clue-boxes" onclick="revealClue({{ i-1 }}, {{ j }}, {{ clues }})">{{ prizes[i] }}</div>
+    {% for j in range(1, 6) %}
+    {% for i in range(6) %}
+    <div class="grid-item clue-boxes" onclick="revealClue({{ i }}, {{ j-1 }}, {{ clues }})">{{ prizes[j-1] }}</div>
     {% endfor %}
     {% endfor %}
 </div>
