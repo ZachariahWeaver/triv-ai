@@ -12,7 +12,7 @@ config.ini
 *.DS_Store
 .AppleDouble
 .LSOverride
-
+app.yaml
 # Icon must end with two \r
 Icon
 

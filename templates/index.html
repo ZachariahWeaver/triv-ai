@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Flask App</title>
+    <title>Triv-AI</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:700&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-<div class="grid-container" id="grid">
-    {% for i in range(6) %}
-    <div class="grid-item category-boxes" data-col=i >{{ categories[i] }}</div>
-    {% endfor %}
-    {% for j in range(1, 6) %}
-    {% for i in range(6) %}
-    <div class="grid-item clue-boxes" onclick="revealClue({{ i }}, {{ j-1 }}, {{ clues }})">{{ prizes[j-1] }}</div>
-    {% endfor %}
-    {% endfor %}
+<div class="page-container">
+        <div class="banner">
+            <div class="title">TRIV-AI</div>
+            <div class="nav-buttons">
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div class="grid-container" id="grid">
+            {% for i in range(6) %}
+            <div class="grid-item category-boxes" data-col=i >{{ categories[i] }}</div>
+            {% endfor %}
+            {% for j in range(1, 6) %}
+            {% for i in range(6) %}
+            <div class="grid-item clue-boxes" onclick="revealClue({{ i }}, {{ j-1 }}, {{ clues }})">{{ prizes[j-1] }}</div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+            <div class="active-clue-container" id="activecluecontainer">
+                <div class="active-clue" id="activeclue" onclick="buzzIn()">
+                    <p class="timer" id="timer"></p>
+                    <p  class="active-clue-text" id="activecluetext"></p>
+                    <div class="submission-box-container">
+                        <div id="submissionbox" class="submission-box"><input type="text" id="activeclueinput" placeholder="Enter your answer">
+                        <button onclick="submitAnswer()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="active-clue-container" id="endcardcontainer">
+                <div class="active-clue" id="endCard">
+                    <br><p class="active-clue-text" id="endgametext"></p>
+                </div>
+            </div>
+        </div>
+    <div class="info-box">
+        <h1></h1>
+        <p></p>
+    </div>
+
 </div>
-
-    <div class="active-clue" id="activeclue" onclick="buzzIn()"><p id="activecluetext" class="active-clue-text"></p>
-
-    <div id="submissionbox" class="submission-box"><input type="text" id="activeclueinput" placeholder="Enter your answer">
-    <button onclick="submitAnswer()">Submit</button>
-        <p id="timer"></p></div></div>
-
-    <div class="active-clue" id="endCard"><p class="active-clue-text" id="endgametext"></p></div>
-
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
