@@ -10,7 +10,7 @@
 <body>
 <div class="page-container">
         <div class="banner">
-            <div class="title">TRIV-AI</div>
+            <div class="title" data-clueset-num="{{ clueset_num }}">TRIV-AI #{{ clueset_num }}</div>
             <div class="nav-buttons">
             </div>
         </div>
@@ -20,9 +20,11 @@
             {% for i in range(6) %}
             <div class="grid-item category-boxes" data-col=i >{{ categories[i] }}</div>
             {% endfor %}
+
+            <!-- Generating Clues -->
             {% for j in range(1, 6) %}
             {% for i in range(6) %}
-            <div class="grid-item clue-boxes" onclick="revealClue({{ i }}, {{ j-1 }}, {{ clues }})">{{ prizes[j-1] }}</div>
+            <div id="clue-{{ i }}-{{ j-1 }}" class="grid-item clue-boxes" onclick="revealClue({{ i }}, {{ j-1 }}, {{ clues }})">{{ prizes[j-1] }}</div>
             {% endfor %}
             {% endfor %}
         </div>

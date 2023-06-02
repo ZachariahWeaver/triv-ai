@@ -5,9 +5,16 @@ let score = 0;
 let values = [200, 400, 600, 800, 1000];
 let timer;
 let buzzed = false;
+let clueStatus = [];
+let clueset_num = document.querySelector('.title').getAttribute('data-clueset-num');
+for (let i = 0; i < 6; i++) {
+    clueStatus[i] = [false, false, false, false, false];
+}
+
 
 function revealClue(col, row, clues) {
 var clue = clues[col][row];
+clueStatus[col][row] = true;
 document.getElementById('activecluetext').innerText = clue;
 var z = document.getElementById('activecluecontainer');
 z.style.display = 'flex';
@@ -32,6 +39,7 @@ y.style.display = 'grid'
 var x = document.getElementById('submissionbox')
 x.style.display = 'none'
 updateCategories();
+saveState();
 document.getElementById('activeclueinput').value = ''
 
 }
@@ -51,12 +59,14 @@ function updateCategories(){
 clueCount = clueCount - 1;
 console.log(clueCount)
 if (clueCount === 0){
+    gameOverScreen();
+    }
+}
+function gameOverScreen(){
     document.getElementById('grid').style.display = 'none';
     document.getElementById('endcardcontainer').style.display = 'flex';
     document.getElementById("endgametext").innerHTML = "Game over <br>  SCORE: " + score;
 }
-}
-
 function submitAnswer() {
 var answer = document.getElementById("activeclueinput").value;
 console.log(answer);
@@ -95,6 +105,53 @@ function buzzIn(){
     document.getElementById('submissionbox').style.display = "block"
 }
 
-function nothing(){
-    1+1;
+
+function saveState() {
+    let state = {
+        colCount: colCount,
+        clueCount: clueCount,
+        score: score,
+        clueStatus: clueStatus
+    };
+    clueset_number = getClueSetNumber();
+    localStorage.setItem('gameState' + clueset_number, JSON.stringify(state));
+}
+
+
+function loadState() {
+    console.log("loaded state")
+    clueset_number = getClueSetNumber();
+    let savedState = localStorage.getItem('gameState' + clueset_number);
+
+    if (savedState !== null) {
+        savedState = JSON.parse(savedState);
+        colCount = savedState.colCount;
+        clueCount = savedState.clueCount;
+        score = savedState.score;
+        clueStatus = savedState.clueStatus;  // Load the clue status
+        if (clueCount === 0){
+            gameOverScreen();
+            }
+        // Loop through the clueStatus array and hide clues that have been clicked
+        for (let col = 0; col < clueStatus.length; col++) {
+            for (let row = 0; row < clueStatus[col].length; row++) {
+                if (clueStatus[col][row]) {
+                    let clueElement = document.getElementById(`clue-${col}-${row}`);
+                    if (clueElement) {
+                        clueElement.innerText = "";  // remove the text content
+                        clueElement.removeAttribute("onclick");  // remove the onclick attribute
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+function getClueSetNumber(){
+    return 1;
+}
+window.onload = function() {
+    loadState();
 }
