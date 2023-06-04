@@ -114,8 +114,11 @@ body {
     font-size: 64px;
     display: block;
     text-align: center;
-    padding: 0px 75px;
+    padding: 150px 75px 0px 75px;
     margin: 0px auto;
+}
+.active-clue-response{
+    display: block;
 }
 .timer{
     position: relative;
@@ -131,12 +134,21 @@ body {
     bottom: 0%;
 }
 .submission-box{
-    display: none;
+    display: block;
     text-align: center;
+    visibility: hidden;
     }
 img {
   width: 200px;
   height: 300px;
   object-fit: cover;
+}
+.top-half{
+    height: 75%;
+    text-align: center;
+}
+
+.bottom-half{
+    height: 25%;
 }
 

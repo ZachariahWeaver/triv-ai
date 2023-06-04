@@ -57,8 +57,10 @@ def weekly():
 def archive(clueset_num):
     today = date.today()
 
-    current_set = (FIRST_DATE - today).days//7
+    current_set = (today - FIRST_DATE).days//7
+    print(current_set)
     if (clueset_num < 0 or clueset_num >= current_set): #change to < 1 after testing
+        print("redirect less than")
         return redirect(url_for('weekly'))
 
     clueset = fetch_clueset(clueset_num)

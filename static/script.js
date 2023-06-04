@@ -7,15 +7,20 @@ let timer;
 let buzzed = false;
 let clueStatus = [];
 let clueset_num = document.querySelector('.title').getAttribute('data-clueset-num');
+let activerow = 0;
 for (let i = 0; i < 6; i++) {
     clueStatus[i] = [false, false, false, false, false];
 }
 
 
-function revealClue(col, row, clues) {
+function revealClue(col, row, clues, responses) {
 var clue = clues[col][row];
+var response = responses[col][row];
 clueStatus[col][row] = true;
 document.getElementById('activecluetext').innerText = clue;
+document.getElementById('activeclueresponse').innerText = response;
+activerow = row;
+
 var z = document.getElementById('activecluecontainer');
 z.style.display = 'flex';
 var y = document.getElementById('grid')
@@ -27,7 +32,6 @@ var clickedBox = event.target;
 clickedBox.innerText = "";  // remove the text content
 clickedBox.removeAttribute("onclick");  // remove the onclick attribute
 updateColumns(col);
-score = score + values[row];
 activeclue.setAttribute('onclick', 'buzzIn()' );
 }
 
@@ -37,8 +41,20 @@ z.style.display = 'none';
 var y = document.getElementById('grid')
 y.style.display = 'grid'
 var x = document.getElementById('submissionbox')
-x.style.display = 'none'
+x.style.visibility = 'hidden'
 updateCategories();
+if(condition == "timeup"){
+    if(buzzed){
+        score = score - values[activerow];
+    }
+}
+else if(condition == "right"){
+    score = score + values[activerow];
+}
+else if(condition == "wrong"){
+    score = score - values[activerow];
+}
+
 saveState();
 document.getElementById('activeclueinput').value = ''
 
@@ -68,10 +84,10 @@ function gameOverScreen(){
     document.getElementById("endgametext").innerHTML = "Game over <br>  SCORE: " + score;
 }
 function submitAnswer() {
-var answer = document.getElementById("activeclueinput").value;
-console.log(answer);
+var guess = document.getElementById("activeclueinput").value;
+var response = document.getElementById("activeclueresponse").value;
 stopTimer();
-if(answer === answer){ // FIX VALIDATION
+if(guess.toUpperCase() == response.toUpperCase()){
     hideClue("right")
 }
 else{
@@ -100,9 +116,10 @@ clearInterval(timer);
 }
 
 function buzzIn(){
+    buzzed = true;
     timeLeft = 10;
     activeclue.removeAttribute('onclick');  // remove the onclick attribute
-    document.getElementById('submissionbox').style.display = "block"
+    document.getElementById('submissionbox').style.visibility = "visible"
 }
 
 
@@ -121,6 +138,7 @@ function saveState() {
 function loadState() {
     console.log("loaded state")
     clueset_number = getClueSetNumber();
+    console.log(clueset_number)
     let savedState = localStorage.getItem('gameState' + clueset_number);
 
     if (savedState !== null) {
@@ -150,7 +168,7 @@ function loadState() {
 
 
 function getClueSetNumber(){
-    return 1;
+    return clueset_num;
 }
 window.onload = function() {
     loadState();
