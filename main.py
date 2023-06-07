@@ -51,15 +51,14 @@ def weekly():
         clues.append(r[1].split("@@@"))
         responses.append(r[2].split("@@@"))
 
-    return render_template('index.html', prizes=PRIZE_VALUES, categories=categories, clues=clues, responses=responses, clueset_num=current_num)
+    return render_template('index.html', prizes=PRIZE_VALUES, categories=categories, clues=clues, responses=responses, clueset_num=current_num, current_num=current_num)
 
 @app.route('/archive/<int:clueset_num>')
 def archive(clueset_num):
     today = date.today()
 
-    current_set = (today - FIRST_DATE).days//7
-    print(current_set)
-    if (clueset_num < 0 or clueset_num >= current_set): #change to < 1 after testing
+    current_num = (today - FIRST_DATE).days//7
+    if (clueset_num < 0 or clueset_num >= current_num): #change to < 1 after testing
         print("redirect less than")
         return redirect(url_for('weekly'))
 
@@ -74,7 +73,7 @@ def archive(clueset_num):
         categories.append(r[0])
         clues.append(r[1].split("@@@"))
         responses.append(r[2].split("@@@"))
-    return render_template('index.html', prizes=PRIZE_VALUES, categories=categories, clues=clues, responses=responses, clueset_num=clueset_num)
+    return render_template('index.html', prizes=PRIZE_VALUES, categories=categories, clues=clues, responses=responses, clueset_num=clueset_num, current_num=current_num)
 
 if __name__ == '__main__':  #remove these lines for deployment to PythonAnywhere 
     app.run(debug=True, use_reloader=False) 

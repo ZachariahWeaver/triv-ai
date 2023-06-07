@@ -4,19 +4,24 @@
     <title>Triv-AI</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Oswald:700&display=swap" rel="stylesheet">
-
 </head>
-
 <body>
-<div class="page-container">
-        <div class="banner">
-        <div class="title" data-clueset-num="{{ clueset_num }}">TRIV-AI #{{ clueset_num }}</div>
-            <div class="nav-buttons">
-            </div>
-        </div>
+    <div class="archive-menu" id="archivemenu">
+        <ul>
+        <li><p>ARCHIVE</p></li>
+        {% for i in range(current_num)[::-1] %}
+            <li><a href="/archive/{{ i }}">Clue Set #{{ i }}</a></li>
+        {% endfor %}
+    </ul></div>
 
-        <div class="game-container">
-            <div class="grid-container" id="grid">
+    <div class="page-container">
+    <div class="banner">
+        <div class="title" data-clueset-num="{{ clueset_num }}"><a href="/">TRIV-AI #{{ clueset_num }}</a></div>
+        <img class="nav-button" src="\static\Hamburger_icon.png" id="navbutton" onclick="toggleArchive()">
+    </div>
+
+    <div class="game-container">
+        <div class="grid-container" id="grid">
             {% for i in range(6) %}
             <div class="grid-item category-boxes" data-col=i >{{ categories[i] }}</div>
             {% endfor %}
@@ -24,32 +29,33 @@
             <!-- Generating Clues -->
             {% for j in range(1, 6) %}
             {% for i in range(6) %}
-            <div id="clue-{{ i }}-{{ j-1 }}" class="grid-item clue-boxes" onclick="revealClue({{ i }}, {{ j-1 }}, {{ clues }}, {{responses}})">{{ prizes[j-1] }}</div>
+            <div id="clue-{{ i }}-{{ j-1 }}" class="grid-item clue-boxes" onclick="revealClue({{ i }}, {{ j-1 }}, {{ clues }}, {{responses}})">{{ prizes[j-1] }}
+            </div>
             {% endfor %}
             {% endfor %}
         </div>
-            <div class="active-clue-container" id="activecluecontainer">
-                <div class="active-clue" id="activeclue" onclick="buzzIn()">
-                    <div class = "top-half" id="tophalf">
-                        <p  class="active-clue-text" id="activecluetext"></p>
-                        <p class="active-clue-response" id="activeclueresponse"></p>
-                    </div>
-                    <div class="bottom-half" id="bottom">
+        <div class="active-clue-container" id="activecluecontainer">
+            <div class="active-clue" id="activeclue" onclick="buzzIn()">
+                <div class = "top-half" id="tophalf">
+                    <p  class="active-clue-text" id="activecluetext"></p>
+                    <p class="active-clue-response" id="activeclueresponse"></p>
+                </div>
+                <div class="bottom-half" id="bottom">
                     <div class="submission-box-container">
                         <div id="submissionbox" class="submission-box"><input type="text" id="activeclueinput" placeholder="Enter your answer">
                         <button onclick="submitAnswer()">Submit</button>
                         </div>
-                        <p class="timer" id="timer"></p>
+                    <p class="timer" id="timer"></p>
                     </div>
-                    </div>
-                </div>
-            </div>
-            <div class="active-clue-container" id="endcardcontainer">
-                <div class="active-clue" id="endCard">
-                    <br><p class="active-clue-text" id="endgametext"></p>
                 </div>
             </div>
         </div>
+        <div class="active-clue-container" id="endcardcontainer">
+            <div class="active-clue" id="endCard">
+                <br><p class="active-clue-text" id="endgametext"></p>
+            </div>
+        </div>
+    </div>
     <div class="info-box">
         <h1></h1>
         <p></p>

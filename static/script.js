@@ -8,8 +8,10 @@ let buzzed = false;
 let clueStatus = [];
 let clueset_num = document.querySelector('.title').getAttribute('data-clueset-num');
 let activerow = 0;
+let toggled = false;
 for (let i = 0; i < 6; i++) {
     clueStatus[i] = [false, false, false, false, false];
+
 }
 
 
@@ -87,14 +89,26 @@ function submitAnswer() {
 var guess = document.getElementById("activeclueinput").value;
 var response = document.getElementById("activeclueresponse").value;
 stopTimer();
-if(guess.toUpperCase() == response.toUpperCase()){
+if(guess == response){
     hideClue("right")
 }
 else{
     hideClue("wrong")
 }
 }
-
+function toggleArchive(){
+    var menu = document.getElementById("archivemenu");
+    var button = document.getElementById("navbutton");
+    if (toggled){
+        menu.style.right = "-20vw";
+        toggled = false;
+    }
+    else{
+        menu.style.right = "0";
+        toggled = true;
+    }
+    console.log("toggle");
+}
 function startTimer() {
 buzzed = false;
 timeLeft = 10;

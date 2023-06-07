@@ -6,7 +6,9 @@ body {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
      box-sizing: border-box;
+    
 }
+
 .page-container{
     background-color: #1c1c1c;
     width: 100vw;
@@ -20,7 +22,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
+}
+.archive-menu{
+    height: 90vh;
+    width: 20vw;    
+    background-color: #353535;
+    position:fixed;
+    right:-20vw;
+    bottom: 0;
+    transition: right 0.6s ease-out; 
 
 }
 
@@ -32,6 +42,16 @@ body {
       color: #FFFFFF;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       letter-spacing: 1px;
+      margin-left: auto;
+}
+
+.title a {
+    color: #FFFFFF; /* keeps the link color white */
+    text-decoration: none; /* removes underline */
+}
+
+.title a:visited {
+    color: #FFFFFF; /* keeps the visited link color white */
 }
 
 .nav-box{
@@ -40,8 +60,13 @@ body {
     height: 0vh;
     width: 20vw;
 }
+.nav-button{
+    width: 86px;
+    height: auto;
+    padding: 15px;
+    display: block;
+    margin-left: auto;
 
-.game-container{
 }
 .grid-container {
     display: grid;
@@ -57,9 +82,7 @@ body {
     background-color: #000000;
 
 }
-.category-boxes{
 
-}
 .category-boxes, .clue-boxes{
     background-color: #38932D;
     color: white;
