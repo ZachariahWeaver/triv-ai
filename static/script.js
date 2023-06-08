@@ -56,6 +56,10 @@ else if(condition == "right"){
 else if(condition == "wrong"){
     score = score - values[activerow];
 }
+let timerBoxes = document.getElementsByClassName('timer-box');
+for(let i = 0; i < timerBoxes.length; i++) {
+    timerBoxes[i].style.visibility = 'visible';
+}
 
 saveState();
 document.getElementById('activeclueinput').value = ''
@@ -100,7 +104,7 @@ function toggleArchive(){
     var menu = document.getElementById("archivemenu");
     var button = document.getElementById("navbutton");
     if (toggled){
-        menu.style.right = "-20vw";
+        menu.style.right = "-40vw";
         toggled = false;
     }
     else{
@@ -112,14 +116,19 @@ function toggleArchive(){
 function startTimer() {
 buzzed = false;
 timeLeft = 10;
-document.getElementById("timer").innerHTML = timeLeft;
 timer = setInterval(function() {
 timeLeft--;
 console.log(timeLeft);
-document.getElementById("timer").innerHTML = timeLeft;
+
+         let timerBoxes = document.getElementsByClassName('timer-box');
+        for(let i = 0; i < timerBoxes.length; i++) {
+        // Hide a box if we've passed its corresponding second
+            if(i >= timeLeft) {
+                timerBoxes[i].style.visibility = 'hidden';
+            }
+        }
 if (timeLeft <= 0) {
   clearInterval(timer);
-  document.getElementById("timer").innerHTML = "Time's up!";
   hideClue("timeup");
 
 }
@@ -127,6 +136,10 @@ if (timeLeft <= 0) {
 }
 function stopTimer() {
 clearInterval(timer);
+let timerBoxes = document.getElementsByClassName('timer-box');
+    for(let i = 0; i < timerBoxes.length; i++) {
+        timerBoxes[i].style.visibility = 'visible';
+    }
 }
 
 function buzzIn(){
@@ -134,6 +147,13 @@ function buzzIn(){
     timeLeft = 10;
     activeclue.removeAttribute('onclick');  // remove the onclick attribute
     document.getElementById('submissionbox').style.visibility = "visible"
+
+    
+    let timerBoxes = document.getElementsByClassName('timer-box');
+    for(let i = 0; i < timerBoxes.length; i++) {
+        timerBoxes[i].style.visibility = 'visible';
+
+    }
 }
 
 
@@ -147,23 +167,22 @@ function saveState() {
     clueset_number = getClueSetNumber();
     localStorage.setItem('gameState' + clueset_number, JSON.stringify(state));
 }
-
-
 function loadState() {
-    console.log("loaded state")
+    console.log("loaded state");
     clueset_number = getClueSetNumber();
-    console.log(clueset_number)
-    let savedState = localStorage.getItem('gameState' + clueset_number);
+    console.log(clueset_number);
+    let currentSavedState = localStorage.getItem('gameState' + clueset_number);
 
-    if (savedState !== null) {
-        savedState = JSON.parse(savedState);
-        colCount = savedState.colCount;
-        clueCount = savedState.clueCount;
-        score = savedState.score;
-        clueStatus = savedState.clueStatus;  // Load the clue status
+    if (currentSavedState !== null) {
+        currentSavedState = JSON.parse(currentSavedState);
+        colCount = currentSavedState.colCount;
+        clueCount = currentSavedState.clueCount;
+        score = currentSavedState.score;
+        clueStatus = currentSavedState.clueStatus;  // Load the clue status
         if (clueCount === 0){
             gameOverScreen();
-            }
+        }
+
         // Loop through the clueStatus array and hide clues that have been clicked
         for (let col = 0; col < clueStatus.length; col++) {
             for (let row = 0; row < clueStatus[col].length; row++) {
@@ -174,6 +193,24 @@ function loadState() {
                         clueElement.removeAttribute("onclick");  // remove the onclick attribute
                     }
                 }
+            }
+        }
+    }
+
+    // Coloring all list items based on their game state
+    for (let i = 0; i < 30; i++) {
+        let savedState = localStorage.getItem('gameState' + i);
+
+        if (savedState !== null) {
+            savedState = JSON.parse(savedState);
+            clueCount = savedState.clueCount;
+
+            let liElement = document.getElementById(`puzzle-${i}`);
+            console.log(savedState.clueCount)
+            if (savedState.clueCount == 0){
+                liElement.style.backgroundColor = "green";
+            } else if (savedState.clueCount < 30) {
+                liElement.style.backgroundColor = "orange";
             }
         }
     }

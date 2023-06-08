@@ -6,16 +6,23 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="archive-menu" id="archivemenu">
-        <ul>
-        <li><p>ARCHIVE</p></li>
-        {% for i in range(current_num)[::-1] %}
-            <li><a href="/archive/{{ i }}">Clue Set #{{ i }}</a></li>
-        {% endfor %}
-    </ul></div>
+
 
     <div class="page-container">
+        <div class="archive-menu" id="archivemenu">
+
+            <div class="archive-banner">
+                <p class="archive-title">ARCHIVE</p>
+                <img class="nav-button-exit" src="\static\Transparent_X.png" id="navbutton" onclick="toggleArchive()">
+            </div>
+            <ul>    
+                {% for i in range(current_num)[::-1] %}
+                    <li id="puzzle-{{ i }}"><a href="/archive/{{ i }}">Clue Set #{{ i }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     <div class="banner">
+
         <div class="title" data-clueset-num="{{ clueset_num }}"><a href="/">TRIV-AI #{{ clueset_num }}</a></div>
         <img class="nav-button" src="\static\Hamburger_icon.png" id="navbutton" onclick="toggleArchive()">
     </div>
@@ -45,7 +52,18 @@
                         <div id="submissionbox" class="submission-box"><input type="text" id="activeclueinput" placeholder="Enter your answer">
                         <button onclick="submitAnswer()">Submit</button>
                         </div>
-                    <p class="timer" id="timer"></p>
+                        <div id="timer" class="timer">
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                            <div class="timer-box"></div>
+                        </div>                    
                     </div>
                 </div>
             </div>
