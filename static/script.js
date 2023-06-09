@@ -106,8 +106,10 @@ function toggleArchive(){
     if (toggled){
         menu.style.right = "-40vw";
         toggled = false;
+        menu.style.visibility = 'hidden'
     }
     else{
+        menu.style.visibility = 'visible';
         menu.style.right = "0";
         toggled = true;
     }

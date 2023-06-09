@@ -1,30 +1,17 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #1c1c1c;
+
 }
 * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-     box-sizing: border-box;
-    scrollbar-width: thin;
-    scrollbar-color: white transparent;
+    box-sizing: border-box;
 }
 
-*::-webkit-scrollbar {
-    width: 8px;
-}
-
-*::-webkit-scrollbar-track {
-    background: transparent;
-}
 a:-webkit-any-link {
     text-decoration: none; 
-}
-
-*::-webkit-scrollbar-thumb {
-background-color: white; 
-border-radius: 20px;
-border: 3px solid transparent;
 }
 
 .page-container{
@@ -34,65 +21,91 @@ border: 3px solid transparent;
 }
 
 .banner{
-    height: 10vh;
+    height: 70px;
     width: 100vw;
     background: #555555;
     display: flex;
     justify-content: center;
     align-items: center;
     top: 0;
+
 }
 .archive-banner{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10vh;
+    height: 70px;
 }
 
 .archive-menu{
     height: 100vh;
-    width: 20vw;
+    width: 300px;
     background-color: #353535;
-    position: fixed;
+    position: absolute;
     right: -40vw;
     bottom: 0;
     transition: right 0.8s ease-out;
     box-shadow: -10px 0px 3rem #000;
+    visibility: hidden ;
+}
+.archive-menu ul {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: white transparent;
+}
+
+.archive-menu ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.archive-menu ul::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.archive-menu ul::-webkit-scrollbar-thumb {
+    background-color: white; 
+    border-radius: 20px;
+    border: 3px solid transparent;
 }
 
 .title{
-      font-family: 'Oswald', sans-serif;
-      font-size: 3rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #FFFFFF;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      letter-spacing: 1px;
-      margin-left: auto;
-}
+    font-family: 'Oswald', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+    justify-self: center;
+    margin-left: auto;
+    max-width: 80%;
+    overflow: hidden;
+
+    }
 
 .title a {
     color: #FFFFFF; /* keeps the link color white */
     text-decoration: none; /* removes underline */
+    overflow: hidden;
+
 }
 
 .title a:visited {
     color: #FFFFFF; /* keeps the visited link color white */
+    overflow: hidden;
+
 }
 
-.nav-box{
-    background: #000000;
-    float: right;
-    height: 0vh;
-    width: 20vw;
-}
 .nav-button{
-    width: 86px;
-    height: auto;
+    width: 60px;
+    height: 60px;
     padding: 15px;
     display: block;
     margin-left: auto;
-
+    max-width: 20%;
+    max-height: 100%;
 }
 
 .nav-button-exit{
@@ -147,17 +160,20 @@ li a {
 li a:visited {
   color: #FFFFFF; /* keeps the visited link color white */
 }
-
+.game-container {
+    max-width: 100%;
+    max-height: 100%;
+}
 .grid-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
-    grid-gap: 4px;
-    max-width: 80vw;
-    min-width: 30vh;
-    height: 80vh;
-    padding: 8px;
-
+    grid-gap: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    width:  1000px;
+    height: 570px;  
+    padding: 10px;
     margin: 3vh auto;
     background-color: #000000;
 
@@ -167,12 +183,18 @@ li a:visited {
     background-color: #0f0b50;
     color: white;
     text-align: center;
-    text-size-adjust: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     padding: 0;
+}
+
+.clue-boxes{
+    font-size: 48px;
+}
+.category-boxes{
+    font-size: 30px;
 }
 .box-outline {
   border: 2px solid black;
@@ -183,18 +205,23 @@ li a:visited {
   left: 0;
 }
 .endcard{
-    max-width: 80vw;
-    min-width: 30vh;
-    height: 80vh;
+    width:  1000px;
+    height: 570px;  
+    max-width: 80%;
+    max-height: 80%;
+    width:  1000px;
+    height: 570px;  
+    padding: 10px;
     padding: 8px;
     margin: 3vh auto;
     background-color: #000000;
     display: none;
 }
 .active-clue-container {
-    max-width: 80vw;
-    min-width: 30vh;
-    height: 80vh;
+    width:  1000px;
+    height: 570px;  
+    max-width: 80%;
+    max-height: 80%;
     padding: 8px;
     margin: 3vh auto;
     background-color: #000000;
@@ -202,35 +229,37 @@ li a:visited {
 }
 
 .active-clue {
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     height: 100%;
-    padding: 0px;
+    padding: 0;
     margin: 0 auto;
     background-color:#0f0b50;
     color: white;
-    display: block;
+}
 
-  }
 .active-clue-text{
-
     font-size: 64px;
-    display: block;
-    text-align: center;
-    padding: 150px 75px 0px 75px;
-    margin: 0px auto;
+    text-align:center; 
+    display: flex;   
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 .active-clue-response{
-    display: block;
+    display: none;
 }
 .timer{
     position: relative;
-    display: flex;
-    height: 20px;
-    margin: 0px; 
-    bottom: 0;
-    justify-content: center;
+    bottom: 10%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .timer-box {
     display: inline-block;
@@ -242,14 +271,42 @@ li a:visited {
 }
 
 .submission-box-container{
-    position:absolute;
-    bottom: 0;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+input[type=text] {
+    width: 100%;
+    height: 40px;
+    margin-right: 1%;
+    margin-left: 1%;
+    border-radius: 20px; 
+    padding-right: 60px; 
+    border: none;
+    outline: none;
+    text-align: center;
+
+ }
+ button {
+    height: 36px;
+    position: absolute;
+    right: 1.25%;
+    width: 60px;
+    font-size: 20px;
+    top: 2px;
+    border: none;
+    outline: none;
+    border-radius: 20px; /* make the button rounded */
+    background-color: rgb(30, 194, 30);
+}
+
 .submission-box{
-    width: 80%;
-    height: 10%;
-    display: block;
+    width: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    bottom: 30%;
+    display: flex;
     text-align: center;
     visibility: hidden;
 }
@@ -259,12 +316,28 @@ img {
   object-fit: cover;
 }
 .top-half{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75%;
     height: 75%;
     text-align: center;
+    vertical-align: center;
+    overflow: hidden;
+    text-align:center; 
+    vertical-align: middle;
+    display: table-cell;   
 }
 
 .bottom-half{
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     height: 25%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    bottom:0;
 }
 
