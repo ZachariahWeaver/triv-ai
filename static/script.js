@@ -13,7 +13,14 @@ for (let i = 0; i < 6; i++) {
     clueStatus[i] = [false, false, false, false, false];
 
 }
+var menu = document.getElementById("archivemenu");
+var input = document.getElementById('submissionbox');
 
+input.addEventListener('keydown', function(event) {
+  if (event.key === "Enter") {
+    submitAnswer()
+  }
+  });
 
 function revealClue(col, row, clues, responses) {
 var clue = clues[col][row];
@@ -21,6 +28,8 @@ var response = responses[col][row];
 clueStatus[col][row] = true;
 document.getElementById('activecluetext').innerText = clue;
 document.getElementById('activeclueresponse').innerText = response;
+console.log(clue)
+console.log(response)
 activerow = row;
 
 var z = document.getElementById('activecluecontainer');
@@ -47,13 +56,17 @@ x.style.visibility = 'hidden'
 updateCategories();
 if(condition == "timeup"){
     if(buzzed){
+        answerNotification('red')
         score = score - values[activerow];
     }
 }
 else if(condition == "right"){
+    answerNotification('green')
+
     score = score + values[activerow];
 }
 else if(condition == "wrong"){
+    answerNotification('red')
     score = score - values[activerow];
 }
 let timerBoxes = document.getElementsByClassName('timer-box');
@@ -91,30 +104,27 @@ function gameOverScreen(){
 }
 function submitAnswer() {
 var guess = document.getElementById("activeclueinput").value;
-var response = document.getElementById("activeclueresponse").value;
+var response = document.getElementById("activeclueresponse").innerText;
+console.log(guess.toUpperCase())
+console.log(response.toUpperCase())
 stopTimer();
-if(guess == response){
+if(guess.toUpperCase() == response.toUpperCase()){
     hideClue("right")
 }
 else{
     hideClue("wrong")
 }
 }
-function toggleArchive(){
-    var menu = document.getElementById("archivemenu");
-    var button = document.getElementById("navbutton");
+function toggleArchive() {
     if (toggled){
-        menu.style.right = "-40vw";
-        toggled = false;
-        menu.style.visibility = 'hidden'
+        menu.classList.remove('show');
+    } else {
+        menu.classList.add('show');
     }
-    else{
-        menu.style.visibility = 'visible';
-        menu.style.right = "0";
-        toggled = true;
-    }
+    toggled = !toggled;
     console.log("toggle");
 }
+
 function startTimer() {
 buzzed = false;
 timeLeft = 10;
@@ -216,6 +226,26 @@ function loadState() {
             }
         }
     }
+}
+
+function answerNotification(color) {
+    var classes = ['clue-boxes', 'category-boxes', 'active-clue'];  // Add the class names here
+    var blinkCount = 0;
+
+    var blinkInterval = setInterval(function() {
+        classes.forEach(function(className) {
+            var elements = document.getElementsByClassName(className);
+    
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.backgroundColor = elements[i].style.backgroundColor === color ? '#0f0b50' : color;
+            }
+        });
+        
+        blinkCount++;
+        if (blinkCount >= 4) {  // *2 because one blink consists of a color change to color and then back to original color
+            clearInterval(blinkInterval);
+        }
+    }, 100);  // Change the blink speed by adjusting this value
 }
 
 

@@ -1,7 +1,6 @@
-import os
 import pymysql
-from flask import Flask, render_template, request, redirect, url_for
-from datetime import datetime, date
+from flask import Flask, render_template, redirect, url_for
+from datetime import date
 import configparser
 
 # Load configuration from the config.ini file

@@ -28,6 +28,7 @@ a:-webkit-any-link {
     justify-content: center;
     align-items: center;
     top: 0;
+    overflow: hidden;
 
 }
 .archive-banner{
@@ -38,22 +39,29 @@ a:-webkit-any-link {
 }
 
 .archive-menu{
+    flex-flow: column;
     height: 100vh;
     width: 300px;
     background-color: #353535;
-    position: absolute;
-    right: -40vw;
+    position: fixed;
+    right: -400px;
     bottom: 0;
     transition: right 0.8s ease-out;
     box-shadow: -10px 0px 3rem #000;
-    visibility: hidden ;
+    z-index: 2;
 }
+
+.archive-menu.show {
+    right: 0;
+}
+
 .archive-menu ul {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     scrollbar-width: thin;
     scrollbar-color: white transparent;
+    padding-left: 8px;
 }
 
 .archive-menu ul::-webkit-scrollbar {
@@ -176,6 +184,7 @@ li a:visited {
     padding: 10px;
     margin: 3vh auto;
     background-color: #000000;
+    overflow: hidden;
 
 }
 
@@ -237,7 +246,7 @@ li a:visited {
     height: 100%;
     padding: 0;
     margin: 0 auto;
-    background-color:#0f0b50;
+    background-color: #0f0b50;
     color: white;
 }
 
@@ -251,10 +260,10 @@ li a:visited {
     height: 100%;
 }
 .active-clue-response{
-    display: none;
+    display: block;
 }
 .timer{
-    position: relative;
+    position: absolute;
     bottom: 10%;
     width: 100%;
     display: flex;
@@ -339,5 +348,6 @@ img {
     position: relative;
     overflow: hidden;
     bottom:0;
+    z-index: 1;
 }
 
